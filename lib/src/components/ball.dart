@@ -26,12 +26,29 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
   void update(double dt) {
     super.update(dt);
     position += velocity * dt;
+
+    // Handle the ball being outside the play area
+    if (position.x < 0) {
+      position.x = 0;
+      velocity.x = -velocity.x;
+    }
+    if (position.x > game.width) {
+      position.x = game.width - radius;
+      velocity.x = -velocity.x;
+    }
+    if (position.y < 0) {
+      position.y = 0;
+      velocity.y = -velocity.y;
+    }
+    if (position.y > game.height) {
+      position.y = game.height - radius;
+      velocity.y = -velocity.y;
+    }
   }
 
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    print(difficultyModifier);
     if (other is PlayArea) {
       if (intersectionPoints.first.y <= 0) {
         velocity.y = -velocity.y;

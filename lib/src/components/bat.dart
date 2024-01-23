@@ -36,6 +36,9 @@ class Bat extends PositionComponent with DragCallbacks, HasGameReference<BrickBr
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
+    if (game.playState != PlayState.playing) {
+      return;
+    }
     position.x = (position.x + event.localDelta.x).clamp(width / 2, game.width - width / 2);
   }
 
