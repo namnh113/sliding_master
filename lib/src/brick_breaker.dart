@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/src/services/keyboard_key.g.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
-import 'package:flutter/src/widgets/focus_manager.dart';
 
 import 'components/components.dart';
 import 'config.dart';
@@ -26,6 +24,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   double get width => size.x;
   double get height => size.y;
 
+  final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
 
   late PlayState _playState;
@@ -64,7 +63,8 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
     world.removeAll(world.children.query<Bat>());
     world.removeAll(world.children.query<Brick>());
 
-    playState = PlayState.playing; // To here.
+    playState = PlayState.playing;
+    score.value = 0;
 
     world.add(Ball(
         difficultyModifier: difficultyModifier,
@@ -89,9 +89,9 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
             brickColors[i],
           ),
     ]);
-  } // Drop the debugMode
+  }
 
-  @override // Add from here...
+  @override
   void onTap() {
     super.onTap();
     startGame();
