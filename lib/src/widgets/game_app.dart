@@ -49,35 +49,32 @@ class _GameAppState extends State<GameApp> {
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Center(
-                child: Column(
-                  children: [
-                    ScoreCard(score: game.score),
-                    FittedBox(
-                      child: SizedBox(
-                        width: gameWidth,
-                        height: gameHeight,
-                        child: GameWidget.controlled(
-                          gameFactory: BrickBreaker.new,
-                          overlayBuilderMap: {
-                            PlayState.welcome.name: (context, game) => const OverlayScreen(
-                                  title: 'TAP TO PLAY',
-                                  subtitle: 'Use arrow keys or swipe',
-                                ),
-                            PlayState.gameOver.name: (context, game) => const OverlayScreen(
-                                  title: 'G A M E   O V E R',
-                                  subtitle: 'Tap to Play Again',
-                                ),
-                            PlayState.won.name: (context, game) => const OverlayScreen(
-                                  title: 'Y O U   W O N ! ! !',
-                                  subtitle: 'Tap to Play Again',
-                                ),
-                          },
-                        ),
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ScoreCard(score: game.score),
+                  SizedBox(
+                    width: gameWidth,
+                    height: gameHeight,
+                    child: GameWidget.controlled(
+                      gameFactory: BrickBreaker.new,
+                      overlayBuilderMap: {
+                        PlayState.welcome.name: (context, game) => const OverlayScreen(
+                              title: 'TAP TO PLAY',
+                              subtitle: 'Use arrow keys or swipe',
+                            ),
+                        PlayState.gameOver.name: (context, game) => const OverlayScreen(
+                              title: 'G A M E   O V E R',
+                              subtitle: 'Tap to Play Again',
+                            ),
+                        PlayState.won.name: (context, game) => const OverlayScreen(
+                              title: 'Y O U   W O N ! ! !',
+                              subtitle: 'Tap to Play Again',
+                            ),
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

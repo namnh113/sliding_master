@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/services/raw_keyboard.dart';
+import 'package:flutter/services.dart';
 
 import 'components/components.dart';
 import 'config.dart';
@@ -98,7 +98,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   }
 
   @override
-  KeyEventResult onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+  KeyEventResult onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     super.onKeyEvent(event, keysPressed);
     switch (event.logicalKey) {
       case LogicalKeyboardKey.arrowLeft:
