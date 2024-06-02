@@ -1,23 +1,27 @@
-import 'package:brick_breaker/src/brick_breaker.dart';
-import 'package:brick_breaker/src/components/components.dart';
-import 'package:brick_breaker/src/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_master/src/brick_breaker.dart';
+import 'package:sliding_master/src/components/play_area.dart';
+import 'package:sliding_master/src/config.dart';
 
-class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<BrickBreaker> {
+class Ball extends CircleComponent
+    with CollisionCallbacks, HasGameReference<BrickBreaker> {
   Ball({
     required this.velocity,
     required super.position,
     required double radius,
     required this.difficultyModifier,
   }) : super(
-            radius: radius,
-            anchor: Anchor.center,
-            paint: Paint()
-              ..color = const Color(0xff1e6091)
-              ..style = PaintingStyle.fill,
-            children: [CircleHitbox()]);
+          radius: radius,
+          anchor: Anchor.center,
+          paint: Paint()
+            ..color = const Color(0xff1e6091)
+            ..style = PaintingStyle.fill,
+          children: [
+            CircleHitbox(),
+          ],
+        );
 
   final Vector2 velocity;
   final double difficultyModifier;
@@ -47,7 +51,10 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
   }
 
   @override
-  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is PlayArea) {
       if (intersectionPoints.first.y <= 0) {
@@ -60,10 +67,11 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
         // removeFromParent();
         velocity.y = -velocity.y;
       }
-    } else if (other is Bat) {
+    } else if (other is Ball) {
       velocity.y = -velocity.y;
-      velocity.x = velocity.x + (position.x - other.position.x) / other.size.x * game.width * 0.3;
-    } else if (other is Brick) {
+      velocity.x = velocity.x +
+          (position.x - other.position.x) / other.size.x * game.width * 0.3;
+    } else if (other is Block) {
       // Modify from here...
       if (position.y < other.position.y - other.size.y / 2) {
         velocity.y = -velocity.y;
@@ -75,7 +83,8 @@ class Ball extends CircleComponent with CollisionCallbacks, HasGameReference<Bri
         velocity.x = -velocity.x;
       }
       final nextVelocity = velocity * difficultyModifier;
-      if (nextVelocity.y.abs() < gameHeight && nextVelocity.x.abs() < gameWidth) {
+      if (nextVelocity.y.abs() < gameHeight &&
+          nextVelocity.x.abs() < gameWidth) {
         velocity.setFrom(nextVelocity);
       }
     } else {
