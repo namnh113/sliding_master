@@ -1,10 +1,8 @@
-import 'package:brick_breaker/src/widgets/overlay_screen.dart';
-import 'package:brick_breaker/src/widgets/score_card.dart';
+import 'package:brick_breaker/src/sliding_puzzle.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../brick_breaker.dart';
 import '../config.dart';
 
 class GameApp extends StatefulWidget {
@@ -15,12 +13,12 @@ class GameApp extends StatefulWidget {
 }
 
 class _GameAppState extends State<GameApp> {
-  late final BrickBreaker game;
+  late final SlidingPuzzle game;
 
   @override
   void initState() {
     super.initState();
-    game = BrickBreaker();
+    game = SlidingPuzzle(rows: 10, columns: 10);
   }
 
   @override
@@ -51,28 +49,29 @@ class _GameAppState extends State<GameApp> {
               padding: const EdgeInsets.all(16),
               child: Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ScoreCard(score: game.score),
                     FittedBox(
                       child: SizedBox(
                         width: gameWidth,
                         height: gameHeight,
                         child: GameWidget.controlled(
-                          gameFactory: BrickBreaker.new,
-                          overlayBuilderMap: {
-                            PlayState.welcome.name: (context, game) => const OverlayScreen(
-                                  title: 'TAP TO PLAY',
-                                  subtitle: 'Use arrow keys or swipe',
-                                ),
-                            PlayState.gameOver.name: (context, game) => const OverlayScreen(
-                                  title: 'G A M E   O V E R',
-                                  subtitle: 'Tap to Play Again',
-                                ),
-                            PlayState.won.name: (context, game) => const OverlayScreen(
-                                  title: 'Y O U   W O N ! ! !',
-                                  subtitle: 'Tap to Play Again',
-                                ),
-                          },
+                          gameFactory: () => game,
+                          // overlayBuilderMap: {
+                          // PlayState.welcome.name: (context, game) => const OverlayScreen(
+                          //   title: 'TAP TO PLAY',
+                          //   subtitle: 'Use arrow keys or swipe',
+                          // ),
+                          // PlayState.gameOver.name: (context, game) => const OverlayScreen(
+                          //   title: 'G A M E   O V E R',
+                          //   subtitle: 'Tap to Play Again',
+                          // ),
+                          // PlayState.won.name: (context, game) => const OverlayScreen(
+                          //   title: 'Y O U   W O N ! ! !',
+                          //   subtitle: 'Tap to Play Again',
+                          // ),
+                          // },
                         ),
                       ),
                     ),
