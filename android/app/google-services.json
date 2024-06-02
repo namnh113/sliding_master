@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "631474498647",
+    "project_id": "sliding-master-5da96",
+    "storage_bucket": "sliding-master-5da96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631474498647:android:ece9d22d07a7f61f48c712",
+        "android_client_info": {
+          "package_name": "com.app.sliding_master"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe37EB2mV0QybgzL_PBEgK_3pC-f7MYVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631474498647:android:c56a8fe7239048e848c712",
+        "android_client_info": {
+          "package_name": "com.app.sliding_master.free"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe37EB2mV0QybgzL_PBEgK_3pC-f7MYVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

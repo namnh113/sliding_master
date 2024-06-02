@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBuuSifR8NpMW2ZvT_Dbu1vwtXF_Y_kyjM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>631474498647</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.app.slidingMaster.free</string>
+	<key>PROJECT_ID</key>
+	<string>sliding-master-5da96</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sliding-master-5da96.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:631474498647:ios:e00a4a21dceae79048c712</string>
+</dict>
+</plist>
