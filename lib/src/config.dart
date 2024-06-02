@@ -14,8 +14,8 @@ const brickColors = [
   Color(0xff577590),
 ];
 
-const gameWidth = 820.0;
-const gameHeight = 1500.0;
+const gameWidth = 1000.0;
+const gameHeight = 1000.0;
 
 const ballRadius = gameWidth * 0.02;
 
