@@ -7,7 +7,8 @@ import '../config.dart';
 import 'ball.dart';
 import 'bat.dart';
 
-class Brick extends RectangleComponent with CollisionCallbacks, HasGameReference<BrickBreaker> {
+class Brick extends RectangleComponent
+    with CollisionCallbacks, HasGameReference<BrickBreaker> {
   Brick(Vector2 position, Color color)
       : super(
           position: position,
@@ -20,7 +21,10 @@ class Brick extends RectangleComponent with CollisionCallbacks, HasGameReference
         );
 
   @override
-  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
     super.onCollisionStart(intersectionPoints, other);
     removeFromParent();
     game.score.value++;

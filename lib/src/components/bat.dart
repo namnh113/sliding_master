@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../brick_breaker.dart';
 
-class Bat extends PositionComponent with DragCallbacks, HasGameReference<BrickBreaker> {
+class Bat extends PositionComponent
+    with DragCallbacks, HasGameReference<BrickBreaker> {
   Bat({
     required this.cornerRadius,
     required super.position,
@@ -26,11 +27,12 @@ class Bat extends PositionComponent with DragCallbacks, HasGameReference<BrickBr
   void render(Canvas canvas) {
     super.render(canvas);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Offset.zero & size.toSize(),
-          cornerRadius,
-        ),
-        _paint);
+      RRect.fromRectAndRadius(
+        Offset.zero & size.toSize(),
+        cornerRadius,
+      ),
+      _paint,
+    );
   }
 
   @override
@@ -39,16 +41,19 @@ class Bat extends PositionComponent with DragCallbacks, HasGameReference<BrickBr
     if (game.playState != PlayState.playing) {
       return;
     }
-    position.x = (position.x + event.localDelta.x).clamp(width / 2, game.width - width / 2);
+    position.x = (position.x + event.localDelta.x)
+        .clamp(width / 2, game.width - width / 2);
   }
 
   void moveBy(double dx) {
-    add(MoveToEffect(
-      Vector2(
-        (position.x + dx).clamp(width / 2, game.width - width / 2),
-        position.y,
+    add(
+      MoveToEffect(
+        Vector2(
+          (position.x + dx).clamp(width / 2, game.width - width / 2),
+          position.y,
+        ),
+        EffectController(duration: 0.1),
       ),
-      EffectController(duration: 0.1),
-    ));
+    );
   }
 }

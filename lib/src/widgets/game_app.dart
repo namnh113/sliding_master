@@ -1,8 +1,8 @@
-import 'package:brick_breaker/src/widgets/overlay_screen.dart';
-import 'package:brick_breaker/src/widgets/score_card.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sliding_master/src/widgets/overlay_screen.dart';
+import 'package:sliding_master/src/widgets/score_card.dart';
 
 import '../brick_breaker.dart';
 import '../config.dart';
@@ -60,15 +60,18 @@ class _GameAppState extends State<GameApp> {
                         child: GameWidget.controlled(
                           gameFactory: BrickBreaker.new,
                           overlayBuilderMap: {
-                            PlayState.welcome.name: (context, game) => const OverlayScreen(
+                            PlayState.welcome.name: (context, game) =>
+                                const OverlayScreen(
                                   title: 'TAP TO PLAY',
                                   subtitle: 'Use arrow keys or swipe',
                                 ),
-                            PlayState.gameOver.name: (context, game) => const OverlayScreen(
+                            PlayState.gameOver.name: (context, game) =>
+                                const OverlayScreen(
                                   title: 'G A M E   O V E R',
                                   subtitle: 'Tap to Play Again',
                                 ),
-                            PlayState.won.name: (context, game) => const OverlayScreen(
+                            PlayState.won.name: (context, game) =>
+                                const OverlayScreen(
                                   title: 'Y O U   W O N ! ! !',
                                   subtitle: 'Tap to Play Again',
                                 ),

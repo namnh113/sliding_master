@@ -12,7 +12,8 @@ import 'config.dart';
 
 enum PlayState { welcome, playing, gameOver, won }
 
-class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents, TapDetector {
+class BrickBreaker extends FlameGame
+    with HasCollisionDetection, KeyboardEvents, TapDetector {
   BrickBreaker()
       : super(
           camera: CameraComponent.withFixedResolution(
@@ -66,16 +67,24 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
     playState = PlayState.playing;
     score.value = 0;
 
-    world.add(Ball(
+    world.add(
+      Ball(
         difficultyModifier: difficultyModifier,
         radius: ballRadius,
         position: size / 2,
-        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2).normalized()..scale(height / 4)));
+        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2)
+            .normalized()
+          ..scale(height / 4),
+      ),
+    );
 
-    world.add(Bat(
+    world.add(
+      Bat(
         size: Vector2(batWidth, batHeight),
         cornerRadius: const Radius.circular(ballRadius / 2),
-        position: Vector2(width / 2, height * 0.95)));
+        position: Vector2(width / 2, height * 0.95),
+      ),
+    );
 
     world.addAll([
       // Drop the await
@@ -98,7 +107,10 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   }
 
   @override
-  KeyEventResult onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+  KeyEventResult onKeyEvent(
+    KeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
     super.onKeyEvent(event, keysPressed);
     switch (event.logicalKey) {
       case LogicalKeyboardKey.arrowLeft:
