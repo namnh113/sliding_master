@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_master/src/sliding_puzzle.dart';
+import 'package:sliding_master/src/sliding_puzzle/sliding_puzzle.dart';
 
 class PlayArea extends RectangleComponent with HasGameReference<SlidingPuzzle> {
   PlayArea()

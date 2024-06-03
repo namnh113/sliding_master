@@ -1,9 +1,9 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sliding_master/src/sliding_puzzle.dart';
+import 'package:sliding_master/src/sliding_puzzle/sliding_puzzle.dart';
 
-import '../config.dart';
+import 'config.dart';
 
 class GameApp extends StatefulWidget {
   const GameApp({super.key});
@@ -18,7 +18,7 @@ class _GameAppState extends State<GameApp> {
   @override
   void initState() {
     super.initState();
-    game = SlidingPuzzle(rows: 10, columns: 10);
+    game = SlidingPuzzle(rows: 3, columns: 3);
   }
 
   @override

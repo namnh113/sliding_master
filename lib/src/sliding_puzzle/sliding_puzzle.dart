@@ -6,8 +6,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_master/src/config.dart';
-
-import 'components/components.dart';
+import 'package:sliding_master/src/sliding_puzzle/components/sliding_item.dart';
 
 class SlidingPuzzle extends FlameGame with KeyboardEvents {
   SlidingPuzzle({required this.rows, required this.columns})
