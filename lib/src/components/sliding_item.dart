@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:brick_breaker/src/sliding_puzzle.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/text.dart';
+import 'package:sliding_master/src/sliding_puzzle.dart';
 
-class SlidingItem extends RectangleComponent with HasGameReference<SlidingPuzzle>, TapCallbacks {
+class SlidingItem extends RectangleComponent
+    with HasGameReference<SlidingPuzzle>, TapCallbacks {
   SlidingItem({
     required NotifyingVector2 position,
     required Color color,
@@ -63,7 +64,10 @@ class SlidingItem extends RectangleComponent with HasGameReference<SlidingPuzzle
     List<int> x = [-1, 0, 1, 0];
     List<int> y = [0, 1, 0, -1];
     for (int i = 0; i < 4; ++i) {
-      if (xIndex + x[i] < 0 || xIndex + x[i] >= game.columns || yIndex + y[i] < 0 || yIndex + y[i] >= game.rows) {
+      if (xIndex + x[i] < 0 ||
+          xIndex + x[i] >= game.columns ||
+          yIndex + y[i] < 0 ||
+          yIndex + y[i] >= game.rows) {
         continue;
       }
       if (game.gameBoard[yIndex + y[i]][xIndex + x[i]].isBlank) {

@@ -1,8 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sliding_master/src/widgets/overlay_screen.dart';
-import 'package:sliding_master/src/widgets/score_card.dart';
+import 'package:sliding_master/src/sliding_puzzle.dart';
 
 import '../config.dart';
 
