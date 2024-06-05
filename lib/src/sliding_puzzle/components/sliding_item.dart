@@ -41,7 +41,7 @@ class SlidingItem extends RectangleComponent
     if (_isAdjacentToBlank()) {
       _swapToBlankItem(blankItem);
     }
-    super.onTapUp(event);
+    game.checkWin();
   }
 
   bool get isBlank => orderNumber == null;

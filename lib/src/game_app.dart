@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_master/src/sliding_puzzle/sliding_puzzle.dart';
+import 'package:sliding_master/src/widgets/overlay_screen.dart';
 
 import 'config.dart';
 
@@ -45,37 +46,46 @@ class _GameAppState extends State<GameApp> {
             ),
           ),
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    FittedBox(
-                      child: SizedBox(
-                        width: gameWidth,
-                        height: gameHeight,
-                        child: GameWidget.controlled(
-                          gameFactory: () => game,
-                          // overlayBuilderMap: {
-                          // PlayState.welcome.name: (context, game) => const OverlayScreen(
-                          //   title: 'TAP TO PLAY',
-                          //   subtitle: 'Use arrow keys or swipe',
-                          // ),
-                          // PlayState.gameOver.name: (context, game) => const OverlayScreen(
-                          //   title: 'G A M E   O V E R',
-                          //   subtitle: 'Tap to Play Again',
-                          // ),
-                          // PlayState.won.name: (context, game) => const OverlayScreen(
-                          //   title: 'Y O U   W O N ! ! !',
-                          //   subtitle: 'Tap to Play Again',
-                          // ),
-                          // },
+            child: GestureDetector(
+              onTap: () {
+                if (game.playState == PlayState.welcome) {
+                  game.playState = PlayState.playing;
+                } else if (game.playState == PlayState.paused) {
+                  game.playState = PlayState.playing;
+                } else if (game.playState == PlayState.win) {
+                  game.playState = PlayState.playing;
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FittedBox(
+                        child: SizedBox(
+                          width: gameWidth,
+                          height: gameHeight,
+                          child: GameWidget.controlled(
+                            gameFactory: () => game,
+                            overlayBuilderMap: {
+                              PlayState.welcome.name: (context, game) =>
+                                  const OverlayScreen(
+                                    title: 'TAP TO PLAY',
+                                    subtitle: 'Click or swipe to play',
+                                  ),
+                              PlayState.win.name: (context, game) =>
+                                  const OverlayScreen(
+                                    title: 'YOU WON !!!',
+                                    subtitle: 'Tap to Play Again',
+                                  ),
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
