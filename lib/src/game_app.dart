@@ -18,7 +18,10 @@ class _GameAppState extends State<GameApp> {
   @override
   void initState() {
     super.initState();
-    game = SlidingPuzzle(rows: 3, columns: 3);
+    game = SlidingPuzzle(
+      axisX: 3,
+      axisY: 4,
+    );
   }
 
   @override

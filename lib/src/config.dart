@@ -12,6 +12,11 @@ const brickColors = [
   Color(0xff4d908e),
   Color(0xff277da1),
   Color(0xff577590),
+  Color(0xff833ab4),
+  Color(0xffa29bfe),
+  Color(0xffe8eaed),
+  Color.fromARGB(255, 82, 192, 255),
+  Color.fromARGB(255, 255, 96, 96),
 ];
 
 const gameWidth = 1000.0;

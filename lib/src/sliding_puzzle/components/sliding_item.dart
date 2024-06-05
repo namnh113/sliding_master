@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/text.dart';
+import 'package:sliding_master/src/sliding_puzzle/model/board_position.dart';
 import 'package:sliding_master/src/sliding_puzzle/sliding_puzzle.dart';
 
 class SlidingItem extends RectangleComponent
@@ -26,8 +27,8 @@ class SlidingItem extends RectangleComponent
 
   final int? orderNumber;
 
-  int xIndex;
-  int yIndex;
+  double xIndex;
+  double yIndex;
 
   @override
   FutureOr<void> onLoad() {
@@ -65,32 +66,32 @@ class SlidingItem extends RectangleComponent
     List<int> y = [0, 1, 0, -1];
     for (int i = 0; i < 4; ++i) {
       if (xIndex + x[i] < 0 ||
-          xIndex + x[i] >= game.columns ||
+          xIndex + x[i] >= game.axisX ||
           yIndex + y[i] < 0 ||
-          yIndex + y[i] >= game.rows) {
+          yIndex + y[i] >= game.axisY) {
         continue;
       }
-      if (game.gameBoard[yIndex + y[i]][xIndex + x[i]].isBlank) {
-        return true;
-      }
+      // if (game.boardState[yIndex + y[i]][xIndex + x[i]].isBlank) {
+      //   return true;
+      // }
     }
     return false;
   }
 
-  void _swapToBlankItem(SlidingItem blankItem) {
+  void _swapToBlankItem(BoardPosition blankItem) {
     //Change position in the coordinates
-    final Vector2 currentPosition = Vector2(position.x, position.y);
-    position = blankItem.position;
-    blankItem.position = currentPosition;
+    // final Vector2 currentPosition = Vector2(position.x, position.y);
+    // position = blankItem.position;
+    // blankItem.position = currentPosition;
 
     //Change position in the gameBoard
-    final currentXIndex = xIndex;
-    final currentYIndex = yIndex;
-    xIndex = game.blankItem.xIndex;
-    yIndex = game.blankItem.yIndex;
-    blankItem.xIndex = currentXIndex;
-    blankItem.yIndex = currentYIndex;
-    game.gameBoard[yIndex][xIndex] = this;
-    game.gameBoard[blankItem.yIndex][blankItem.xIndex] = blankItem;
+    // final currentXIndex = xIndex;
+    // final currentYIndex = yIndex;
+    // xIndex = game.blankItem.xIndex;
+    // yIndex = game.blankItem.yIndex;
+    // blankItem.xIndex = currentXIndex;
+    // blankItem.yIndex = currentYIndex;
+    // game.gameBoard[yIndex][xIndex] = this;
+    // game.gameBoard[blankItem.yIndex][blankItem.xIndex] = blankItem;
   }
 }
