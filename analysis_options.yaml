@@ -1,5 +1,10 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  language:
+    strict-casts: true
+
 linter:
   rules:
     require_trailing_commas: true
+    prefer_const_declarations: false # false for quick development. true for production
