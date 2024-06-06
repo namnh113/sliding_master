@@ -4,10 +4,13 @@
 
 import 'dart:async';
 
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
+import 'package:sliding_master/gen/assets.gen.dart';
+import 'package:sliding_master/src/sliding_puzzle/sliding_puzzle.dart';
 
 import '../../audio/audio_controller.dart';
 import '../../audio/sounds.dart';
@@ -18,7 +21,6 @@ import '../player_progress/player_progress.dart';
 import '../style/confetti.dart';
 import '../style/my_button.dart';
 import '../style/palette.dart';
-import 'game_widget.dart';
 
 /// This widget defines the entirety of the screen that the player sees when
 /// they are playing a level.
@@ -88,16 +90,15 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                     alignment: Alignment.centerRight,
                     child: InkResponse(
                       onTap: () => GoRouter.of(context).push('/settings'),
-                      child: Image.asset(
-                        'assets/images/settings.png',
-                        semanticLabel: 'Settings',
-                      ),
+                      child: Assets.images.settings.image(),
                     ),
                   ),
                   const Spacer(),
-                  const Expanded(
+                  Expanded(
                     // The actual UI of the game.
-                    child: GameWidget(),
+                    child: GameWidget.controlled(
+                      gameFactory: () => SlidingPuzzle(axisX: 3, axisY: 4),
+                    ),
                   ),
                   const Spacer(),
                   Padding(
