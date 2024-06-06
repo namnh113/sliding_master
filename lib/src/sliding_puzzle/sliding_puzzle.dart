@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_master/src/config.dart';
+import 'package:sliding_master/config.dart';
 import 'package:sliding_master/src/sliding_puzzle/components/sliding_item.dart';
 import 'package:sliding_master/src/sliding_puzzle/model/board_position.dart';
 
