@@ -18,4 +18,16 @@ add(game): [#5] - commit message
 * issue id: optional - issue id
 * message: required - commit message
 
+### Must format before commit
+
+```sh
+ dart fix --apply
+```
+
+## Generating Assets
+
+```sh
+dart run build_runner build
+```
+
 [flutter-flame-brick-breaker](https://codelabs.developers.google.com/codelabs/flutter-flame-brick-breaker)
