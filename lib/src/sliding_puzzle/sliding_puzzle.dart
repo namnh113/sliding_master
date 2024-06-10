@@ -77,4 +77,7 @@ class SlidingPuzzle extends FlameGame with KeyboardEvents {
       }
     }
   }
+
+  @override
+  Color backgroundColor() => const Color(0xfff2e8cf);
 }
