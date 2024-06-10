@@ -90,17 +90,16 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                     alignment: Alignment.centerRight,
                     child: InkResponse(
                       onTap: () => GoRouter.of(context).push('/settings'),
-                      child: Assets.images.settings.image(),
+                      child: Assets.images.settings
+                          .image(semanticLabel: "Setting"),
                     ),
                   ),
-                  const Spacer(),
                   Expanded(
                     // The actual UI of the game.
                     child: GameWidget.controlled(
                       gameFactory: () => SlidingPuzzle(axisX: 3, axisY: 4),
                     ),
                   ),
-                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: MyButton(
