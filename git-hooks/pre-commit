@@ -1,0 +1,29 @@
+#!/bin/sh
+# This is a sample pre-commit hook script to check your code before committing.
+
+# Run flutter analyze
+echo "Running flutter analyze..."
+flutter analyze
+
+# Check the exit status of flutter analyze
+if [ $? -ne 0 ]; then
+  echo "flutter analyze failed. Please fix the issues before committing."
+  exit 1
+fi
+
+# Check code formatting
+echo "Checking code formatting..."
+dart format --set-exit-if-changed .
+
+if [ $? -ne 0 ]; then
+  echo "Code formatting issues found. Please format your code before committing."
+  exit 1
+fi
+
+# If you have other checks, add them here
+# For example, to run tests:
+# echo "Running tests..."
+# flutter test
+
+# Exit with success
+exit 0

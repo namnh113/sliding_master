@@ -72,5 +72,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'sliding-master-5da96.appspot.com',
     iosBundleId: 'com.app.slidingMaster',
   );
-
 }

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Check commit message pattern
+COMMIT_MSG_FILE=$(git rev-parse --git-path COMMIT_EDITMSG)
+COMMIT_MSG=$(cat $COMMIT_MSG_FILE)
+
+PATTERN="(fix|add|wip|chore|refactor|doc|style|test|perf)\(\w+\)?:\s?(\[\#\d+])?.+"
+
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+  echo "Commit message does not match the required pattern:"
+  echo "(fix|add|wip|chore|refactor|doc|style|test|perf)(feature): [#(issue id)] - message"
+  exit 1
+fi
+
+# If you have other checks, add them here
+# For example, to run tests:
+# echo "Running tests..."
+# flutter test
+
+# Exit with success
+exit 0
