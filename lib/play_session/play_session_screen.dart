@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
 import 'package:sliding_master/gen/assets.gen.dart';
-import 'package:sliding_master/src/sliding_puzzle/sliding_puzzle.dart';
+import 'package:sliding_master/sliding_puzzle/sliding_puzzle.dart';
 
 import '../../audio/audio_controller.dart';
 import '../../audio/sounds.dart';
@@ -97,7 +97,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                   Expanded(
                     // The actual UI of the game.
                     child: GameWidget.controlled(
-                      gameFactory: () => SlidingPuzzle(axisX: 3, axisY: 4),
+                      gameFactory: () => SlidingPuzzle(),
                     ),
                   ),
                   Padding(
