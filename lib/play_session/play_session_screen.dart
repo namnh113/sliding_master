@@ -47,11 +47,15 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   late DateTime _startOfPlay;
 
+  late final SlidingPuzzle game;
+
   @override
   void initState() {
     super.initState();
 
     _startOfPlay = DateTime.now();
+
+    game = SlidingPuzzle();
   }
 
   @override
@@ -83,31 +87,32 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
               // This is the main layout of the play session screen,
               // with a settings button on top, the actual play area
               // in the middle, and a back button at the bottom.
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: InkResponse(
-                      onTap: () => GoRouter.of(context).push('/settings'),
-                      child: Assets.images.settings
-                          .image(semanticLabel: "Setting"),
+              SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MyButton(
+                          onPressed: () => GoRouter.of(context).go('/play'),
+                          child: const Text('Back'),
+                        ),
+                        InkResponse(
+                          onTap: () => GoRouter.of(context).push('/settings'),
+                          child: Assets.images.settings
+                              .image(semanticLabel: "Setting"),
+                        ),
+                      ],
                     ),
-                  ),
-                  Expanded(
-                    // The actual UI of the game.
-                    child: GameWidget.controlled(
-                      gameFactory: () => SlidingPuzzle(),
+                    const Expanded(
+                      // The actual UI of the game.
+                      child: GameWidget.controlled(
+                        gameFactory: SlidingPuzzle.new,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: MyButton(
-                      onPressed: () => GoRouter.of(context).go('/play'),
-                      child: const Text('Back'),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               // This is the confetti animation that is overlaid on top of the
               // game when the player wins.

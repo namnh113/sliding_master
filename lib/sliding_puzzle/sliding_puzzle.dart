@@ -5,7 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_master/sliding_puzzle/model/piece.dart';
 
-class SlidingPuzzle extends FlameGame with PanDetector {
+class SlidingPuzzle extends FlameGame with PanDetector, KeyboardEvents {
   final int rows = 3;
   final int cols = 4;
   late List<List<Piece?>> grid;
@@ -178,4 +178,7 @@ class SlidingPuzzle extends FlameGame with PanDetector {
       }
     }
   }
+
+  @override
+  Color backgroundColor() => const Color(0xfff2e8cf);
 }
