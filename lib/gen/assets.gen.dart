@@ -26,6 +26,16 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [back, restart, settings];
 }
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/splash_game_play.json
+  String get splashGamePlay => 'assets/lottie/splash_game_play.json';
+
+  /// List of all assets
+  List<String> get values => [splashGamePlay];
+}
+
 class $AssetsMusicGen {
   const $AssetsMusicGen();
 
@@ -180,6 +190,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsMusicGen music = $AssetsMusicGen();
   static const $AssetsSfxGen sfx = $AssetsSfxGen();
 }
