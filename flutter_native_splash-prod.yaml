@@ -1,0 +1,19 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/sliding_puzzles_game.png
+  background_image: "assets/images/sliding_puzzles_game.png"
+  background_image_dark: "assets/images/sliding_puzzles_game.png"
+  fullscreen: true
+  android: true
+  ios: true
+  web: false
+  color_dark_android: "#FFFFFF"
+  color_dark_ios: "#FFFFFF"
+  ios_content_mode: scaleAspectFit
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/sliding_puzzles_game.png
+    color_dark: "#FFFFFF"
+    color_dark_android: "#FFFFFF"
+  android_gravity: fill
+
