@@ -8,6 +8,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_master/gen/assets.gen.dart';
 import 'package:sliding_master/sliding_puzzle/sliding_puzzle.dart';
@@ -49,87 +50,109 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   late final SlidingPuzzle game;
 
+  bool _isLoadingGamePLay = true;
+
   @override
   void initState() {
     super.initState();
 
     _startOfPlay = DateTime.now();
+    List<Future> futures = [
+      Future.delayed(Duration.zero, () {
+        game = SlidingPuzzle();
+      }),
+      Future.delayed(_celebrationDuration),
+    ];
 
-    game = SlidingPuzzle();
+    Future.wait(futures).then((value) {
+      setState(() {
+        _isLoadingGamePLay = false;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
 
-    return MultiProvider(
-      providers: [
-        Provider.value(value: widget.level),
-        // Create and provide the [LevelState] object that will be used
-        // by widgets below this one in the widget tree.
-        ChangeNotifierProvider(
-          create: (context) => LevelState(
-            goal: widget.level.difficulty,
-            onWin: _playerWon,
-          ),
-        ),
-      ],
-      child: IgnorePointer(
-        // Ignore all input during the celebration animation.
-        ignoring: _duringCelebration,
-        child: Scaffold(
-          backgroundColor: palette.backgroundPlaySession,
-          // The stack is how you layer widgets on top of each other.
-          // Here, it is used to overlay the winning confetti animation on top
-          // of the game.
-          body: Stack(
-            children: [
-              // This is the main layout of the play session screen,
-              // with a settings button on top, the actual play area
-              // in the middle, and a back button at the bottom.
-              SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyButton(
-                          onPressed: () => GoRouter.of(context).go('/play'),
-                          child: const Text('Back'),
-                        ),
-                        InkResponse(
-                          onTap: () => GoRouter.of(context).push('/settings'),
-                          child: Assets.images.settings
-                              .image(semanticLabel: "Setting"),
-                        ),
-                      ],
-                    ),
-                    const Expanded(
-                      // The actual UI of the game.
-                      child: GameWidget.controlled(
-                        gameFactory: SlidingPuzzle.new,
-                      ),
-                    ),
-                  ],
+    return AnimatedSwitcher(
+      duration: _preCelebrationDuration,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: _isLoadingGamePLay
+          ? Lottie.asset(Assets.lottie.splashGamePlay)
+          : MultiProvider(
+              providers: [
+                Provider.value(value: widget.level),
+                // Create and provide the [LevelState] object that will be used
+                // by widgets below this one in the widget tree.
+                ChangeNotifierProvider(
+                  create: (context) => LevelState(
+                    goal: widget.level.difficulty,
+                    onWin: _playerWon,
+                  ),
                 ),
-              ),
-              // This is the confetti animation that is overlaid on top of the
-              // game when the player wins.
-              SizedBox.expand(
-                child: Visibility(
-                  visible: _duringCelebration,
-                  child: IgnorePointer(
-                    child: Confetti(
-                      isStopped: !_duringCelebration,
-                    ),
+              ],
+              child: IgnorePointer(
+                // Ignore all input during the celebration animation.
+                ignoring: _duringCelebration,
+                child: Scaffold(
+                  backgroundColor: palette.backgroundPlaySession,
+                  // The stack is how you layer widgets on top of each other.
+                  // Here, it is used to overlay the winning confetti animation on top
+                  // of the game.
+                  body: Stack(
+                    children: [
+                      // This is the main layout of the play session screen,
+                      // with a settings button on top, the actual play area
+                      // in the middle, and a back button at the bottom.
+                      SafeArea(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                MyButton(
+                                  onPressed: () =>
+                                      GoRouter.of(context).go('/play'),
+                                  child: const Text('Back'),
+                                ),
+                                InkResponse(
+                                  onTap: () =>
+                                      GoRouter.of(context).push('/settings'),
+                                  child: Assets.images.settings
+                                      .image(semanticLabel: "Setting"),
+                                ),
+                              ],
+                            ),
+                            const Expanded(
+                              // The actual UI of the game.
+                              child: GameWidget.controlled(
+                                gameFactory: SlidingPuzzle.new,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // This is the confetti animation that is overlaid on top of the
+                      // game when the player wins.
+                      SizedBox.expand(
+                        child: Visibility(
+                          visible: _duringCelebration,
+                          child: IgnorePointer(
+                            child: Confetti(
+                              isStopped: !_duringCelebration,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
