@@ -19,8 +19,8 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
   double get height => size.y;
 
   SlidingPuzzle({
-    this.axisX = 4,
-    this.axisY = 3,
+    this.axisX = 3,
+    this.axisY = 4,
   }) : super();
 
   @override
@@ -28,6 +28,7 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
     super.onLoad();
     camera.viewfinder.anchor = Anchor.topLeft;
     pieceWidth = size.x / axisX;
+    pieceHeight = size.y / axisY;
     initializeGrid();
   }
 
