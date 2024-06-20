@@ -50,25 +50,37 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   late final SlidingPuzzle game;
 
-  bool _isLoadingGamePLay = true;
+  bool _isLoadingGamePlay = true;
 
   @override
   void initState() {
     super.initState();
-
     _startOfPlay = DateTime.now();
-    List<Future> futures = [
-      Future.delayed(Duration.zero, () {
-        game = SlidingPuzzle();
-      }),
-      Future.delayed(_celebrationDuration),
-    ];
 
-    Future.wait(futures).then((value) {
-      setState(() {
-        _isLoadingGamePLay = false;
-      });
+    _initializeGame();
+  }
+
+  Future<void> _initializeGame() async {
+    setState(() {
+      _isLoadingGamePlay = true;
     });
+
+    try {
+      // Initialize the game
+      await Future.delayed(Duration.zero, () {
+        game = SlidingPuzzle();
+      });
+
+      await Future.delayed(_celebrationDuration);
+    } catch (error) {
+      _log.severe('Failed to initialize game', error);
+    }
+
+    if (mounted) {
+      setState(() {
+        _isLoadingGamePlay = false;
+      });
+    }
   }
 
   @override
@@ -80,7 +92,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       transitionBuilder: (Widget child, Animation<double> animation) {
         return FadeTransition(opacity: animation, child: child);
       },
-      child: _isLoadingGamePLay
+      child: _isLoadingGamePlay
           ? Lottie.asset(Assets.lottie.splashGamePlay)
           : MultiProvider(
               providers: [
@@ -127,10 +139,14 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                                 ),
                               ],
                             ),
-                            const Expanded(
+                            const FittedBox(
                               // The actual UI of the game.
-                              child: GameWidget.controlled(
-                                gameFactory: SlidingPuzzle.new,
+                              child: SizedBox(
+                                width: 300,
+                                height: 600,
+                                child: GameWidget.controlled(
+                                  gameFactory: SlidingPuzzle.new,
+                                ),
                               ),
                             ),
                           ],
