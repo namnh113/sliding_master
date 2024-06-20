@@ -127,10 +127,14 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                                 ),
                               ],
                             ),
-                            const Expanded(
+                            const FittedBox(
                               // The actual UI of the game.
-                              child: GameWidget.controlled(
-                                gameFactory: SlidingPuzzle.new,
+                              child: SizedBox(
+                                width: 300,
+                                height: 600,
+                                child: GameWidget.controlled(
+                                  gameFactory: SlidingPuzzle.new,
+                                ),
                               ),
                             ),
                           ],
