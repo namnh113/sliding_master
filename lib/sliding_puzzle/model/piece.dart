@@ -3,29 +3,28 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_master/sliding_puzzle/sliding_puzzle.dart';
 
-class Piece extends RectangleComponent
-    with HasGameRef<SlidingPuzzle>, DragCallbacks {
+class Piece extends SpriteComponent
+    with HasGameRef<SlidingPuzzle>, DragCallbacks, TapCallbacks {
   Piece({
     required Vector2 position,
     required Vector2 size,
-    required Color color,
-    required this.label,
+    required this.index,
+    super.sprite,
   }) : super(
           position: position,
           size: size,
           paint: Paint()
-            ..color = color
+            ..color = Colors.cyan
             ..style = PaintingStyle.fill,
           children: [
-            TextBoxComponent(
-              // align: Anchor.center,
-              text: label,
-            ),
+            // TextBoxComponent(
+            //   text: index.toString(),
+            // ),
           ],
           anchor: Anchor.topLeft,
         );
 
-  final String label;
+  final int index;
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
@@ -36,8 +35,16 @@ class Piece extends RectangleComponent
         (position.y + event.localDelta.y).clamp(0, game.height - size.y);
   }
 
-  bool draggable() {
-    game.blankPiece;
-    return label.isEmpty;
+  @override
+  void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
+    game.swapPiece(this);
+  }
+
+  bool swappable() {
+    return game.blankPiece?.position.x.roundToDouble() ==
+            position.x.roundToDouble() ||
+        game.blankPiece?.position.y.roundToDouble() ==
+            position.y.roundToDouble();
   }
 }

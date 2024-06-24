@@ -103,7 +103,7 @@ class AudioController {
 
     final currentPlayer = _sfxPlayers[_currentSfxPlayer];
     currentPlayer.play(
-      AssetSource('sfx/$filename'),
+      AssetSource(filename),
       volume: soundTypeToVolume(type),
     );
     _currentSfxPlayer = (_currentSfxPlayer + 1) % _sfxPlayers.length;
