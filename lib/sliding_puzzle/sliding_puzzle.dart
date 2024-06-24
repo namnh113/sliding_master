@@ -118,7 +118,7 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
 
   void renderPieces() {
     world.addAll(playingPiece);
-    blankPiece?.add(OpacityEffect.to(0.2, EffectController(duration: 0.5)));
+    blankPiece?.add(OpacityEffect.to(0.2, EffectController(duration: 0.2)));
   }
 
   // bool checkWinCondition() {
@@ -134,13 +134,18 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
   Color backgroundColor() => Colors.white;
 
   void swapPiece(Piece piece) {
-    if (piece.swappable() && blankPiece != null) {
-      blankPiece
-          ?.add(MoveEffect.to(piece.position, EffectController(duration: 0.5)));
+    if (piece.swappable && blankPiece != null) {
+      Vector2 blankPiecePosition = blankPiece!.position;
+      Vector2 piecePosition = piece.position;
 
+      blankPiece
+          ?.add(MoveEffect.to(piece.position, EffectController(duration: 0.2)));
       piece.add(
-        MoveEffect.to(blankPiece!.position, EffectController(duration: 0.5)),
+        MoveEffect.to(blankPiece!.position, EffectController(duration: 0.2)),
       );
+
+      blankPiece?.position = piecePosition;
+      piece.position = blankPiecePosition;
     }
   }
 }

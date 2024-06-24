@@ -29,10 +29,18 @@ class Piece extends SpriteComponent
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
-    position.x =
-        (position.x + event.localDelta.x).clamp(0, game.width - size.x);
-    position.y =
-        (position.y + event.localDelta.y).clamp(0, game.height - size.y);
+
+    if (index != game.blankPiece?.index) {
+      if (swappableHorizontal) {
+        position.x =
+            (position.x + event.localDelta.x).clamp(0, game.width - size.x);
+      }
+
+      if (swappableVertical) {
+        position.y =
+            (position.y + event.localDelta.y).clamp(0, game.height - size.y);
+      }
+    }
   }
 
   @override
@@ -41,10 +49,11 @@ class Piece extends SpriteComponent
     game.swapPiece(this);
   }
 
-  bool swappable() {
-    return game.blankPiece?.position.x.roundToDouble() ==
-            position.x.roundToDouble() ||
-        game.blankPiece?.position.y.roundToDouble() ==
-            position.y.roundToDouble();
-  }
+  bool get swappable => swappableVertical || swappableHorizontal;
+
+  bool get swappableHorizontal =>
+      game.blankPiece?.position.x.roundToDouble() == position.x.roundToDouble();
+
+  bool get swappableVertical =>
+      game.blankPiece?.position.y.roundToDouble() == position.y.roundToDouble();
 }
