@@ -13,7 +13,6 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
   late List<int> grid;
   late double pieceWidth = 0;
   late double pieceHeight = 0;
-  late Vector2 blankPiece = Vector2.all(0);
 
   double get width => size.x;
   double get height => size.y;
@@ -31,6 +30,10 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
     pieceHeight = size.y / axisY;
     initializeGrid();
   }
+
+  Piece get blankPiece => world.children
+      .query<Piece>()
+      .firstWhere((element) => element.label == '');
 
   void initializeGrid() {
     world.removeAll(world.children.query<Piece>());
