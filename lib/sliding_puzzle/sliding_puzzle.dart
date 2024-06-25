@@ -34,8 +34,6 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
       .query<Piece>()
       .firstWhereOrNull((element) => element.index == 0);
 
-  List<int> get pieceIds => playingPiece.map((e) => e.index).toList();
-
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -45,17 +43,6 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
     await initImage();
     initialBoard();
     initializeGrid();
-  }
-
-  void printPieceIds() {
-    // String out = '';
-    // for (int i = 0; i < axisX * axisY; ++i) {
-    //   if (i % axisX == 0) {
-    //     out += '\n';
-    //   }
-    //   out += '${pieceIds[i]} ';
-    // }
-    // print(out);
   }
 
   Future<void> initImage() async {
@@ -79,7 +66,6 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
     removeAllPieces();
     sufferPiece();
     renderPieces();
-    printPieceIds();
   }
 
   void sufferPiece() {
@@ -152,9 +138,6 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
       Vector2 blankPiecePosition = blankPiece!.position;
       Vector2 piecePosition = piece.position;
 
-      int indexBlankPiece = playingPiece.indexOf(blankPiece!);
-      int indexPiece = playingPiece.indexOf(piece);
-
       blankPiece
           ?.add(MoveEffect.to(piece.position, EffectController(duration: 0.2)));
       piece.add(
@@ -164,11 +147,16 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
       blankPiece?.position = piecePosition;
       piece.position = blankPiecePosition;
 
-      Piece temp = playingPiece[indexBlankPiece];
-      playingPiece[indexBlankPiece] = piece;
-      playingPiece[indexPiece] = temp;
-
-      printPieceIds();
+      updateToState(piece);
     }
+  }
+
+  void updateToState(Piece piece) {
+    int indexBlankPiece = playingPiece.indexOf(blankPiece!);
+    int indexPiece = playingPiece.indexOf(piece);
+
+    Piece temp = playingPiece[indexBlankPiece];
+    playingPiece[indexBlankPiece] = piece;
+    playingPiece[indexPiece] = temp;
   }
 }
