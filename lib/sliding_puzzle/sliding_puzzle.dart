@@ -146,6 +146,17 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
 
       blankPiece?.position = piecePosition;
       piece.position = blankPiecePosition;
+
+      updateToState(piece);
     }
+  }
+
+  void updateToState(Piece piece) {
+    int indexBlankPiece = playingPiece.indexOf(blankPiece!);
+    int indexPiece = playingPiece.indexOf(piece);
+
+    Piece temp = playingPiece[indexBlankPiece];
+    playingPiece[indexBlankPiece] = piece;
+    playingPiece[indexPiece] = temp;
   }
 }
