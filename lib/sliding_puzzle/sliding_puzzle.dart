@@ -135,13 +135,13 @@ class SlidingPuzzle extends FlameGame with TapDetector, KeyboardEvents {
 
   void swapPiece(Piece piece) {
     if (piece.swappable && blankPiece != null) {
-      Vector2 blankPiecePosition = blankPiece!.position;
-      Vector2 piecePosition = piece.position;
+      Vector2 blankPiecePosition = blankPiece!.position.clone();
+      Vector2 piecePosition = piece.position.clone();
 
       blankPiece
-          ?.add(MoveEffect.to(piece.position, EffectController(duration: 0.2)));
+          ?.add(MoveEffect.to(piecePosition, EffectController(duration: 0.2)));
       piece.add(
-        MoveEffect.to(blankPiece!.position, EffectController(duration: 0.2)),
+        MoveEffect.to(blankPiecePosition, EffectController(duration: 0.2)),
       );
 
       blankPiece?.position = piecePosition;
