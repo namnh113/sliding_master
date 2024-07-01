@@ -93,16 +93,20 @@ class Piece extends SpriteComponent
 
     if (pieceX == blankX - 1 && pieceY == blankY) {
       return position.x <= gameRef.blankPiece!.position.x &&
-          position.x >= _originalPosition.x;
+          position.x >= _originalPosition.x &&
+          position.y == _originalPosition.y;
     } else if (pieceX == blankX + 1 && pieceY == blankY) {
       return position.x >= gameRef.blankPiece!.position.x &&
-          position.x <= _originalPosition.x;
+          position.x <= _originalPosition.x &&
+          position.y == _originalPosition.y;
     } else if (pieceX == blankX && pieceY == blankY - 1) {
       return position.y <= gameRef.blankPiece!.position.y &&
-          position.y >= _originalPosition.y;
+          position.y >= _originalPosition.y &&
+          position.x == _originalPosition.x;
     } else if (pieceX == blankX && pieceY == blankY + 1) {
       return position.y >= gameRef.blankPiece!.position.y &&
-          position.y <= _originalPosition.y;
+          position.y <= _originalPosition.y &&
+          position.x == _originalPosition.x;
     }
 
     return false;
